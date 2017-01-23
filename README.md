@@ -7,12 +7,14 @@ Relaxa, nós também não sabíamos o que isso significa ;)
 
 ## Vagas
 ---
-### Estagiário FullStack
-Precisamos de alguém com algum conhecimento e muita vontade de aprender. Topa?
+### FullStack Developer
+Precisamos de alguém com conhecimento e muita vontade colocar a mão na massa. Topa?
 
 #### Requisitos:
 * Vivência em Desenvolvimento Web, preferencialmente PHP
 * Vontade de aprender.
+* Proatividade.
+* Boas noções de frontend.
 
 #### Bônus:
 * Interesse por infra e ops
