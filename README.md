@@ -20,7 +20,7 @@ Precisamos de alguém com conhecimento e muita vontade colocar a mão na massa. 
 * Interesse por infra e ops
 
 #### Como me candidatar?
-Não queremos ver o seu CV, mas sim o seu código.
+Gostariamos de ver o seu CV, mas estamos mesmo interessados é no seu código.
 Para isso, elaboramos um pequeno teste de aptidões que pode ser realizado no seu tempo.
 As instruções para execução desse teste estão localizadas na pasta landing-page desse mesmo repositório.
 
