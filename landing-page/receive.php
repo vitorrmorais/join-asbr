@@ -46,5 +46,34 @@
 	
 	//Envia dados para o banco
 	$query = mysqli_query($conecta, "INSERT INTO `dados` (nome, datanasc, email, telefone, regiao, unidade, score, token) VALUES('$nome', '$date', '$email', '$telefone', '$regiao', '$unidade', '$score', '$token')");
+	
+	//Obtem o id da ultilma tabela para poder enviar via post
+	$ultimoid = mysqli_insert_id($conecta);
+	echo $ultimoid;	
+
+	//Envia leads para o endpoint
+	$url = 'http://api.actualsales.com.br/join-asbr/ti/lead';
+	$campos = array(
+    	'nome'=>urlencode($nome),
+		'email'=>urlencode($email),
+		'telefone'=>urlencode($telefone),
+		'regiao'=>urlencode($regiao),
+		'unidade'=>urlencode($unidade),
+    	'data_nascimento'=>urlencode($date),
+		'score'=>urlencode($score),
+		'token'=>urlencode($token)
+	);
+	foreach($campos as $name => $valor) {
+    	$string_campos .= $name . '=' . $valor . '&';
+	}
+	$string_campos = rtrim($string_campos,'&');
+	$ch = curl_init();
+	curl_setopt($ch,CURLOPT_URL,$url);
+	curl_setopt($ch,CURLOPT_RETURNTRANSFER, TRUE);
+	curl_setopt($ch,CURLOPT_POST,count($campos));
+	curl_setopt($ch,CURLOPT_POSTFIELDS,$string_campos);
+	$resultado = curl_exec($ch);
+	curl_close($ch);
+	echo $resultado;
 
 ?>
