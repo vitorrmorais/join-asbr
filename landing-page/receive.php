@@ -32,20 +32,19 @@
 	}
 
 	//Calcula idade do cliente
-	$date = new DateTime( $date );
+	$tdate = new DateTime( $date );
 	$fixdate = new DateTime( '2016-11-01' );
-	$idade = $date->diff( $fixdate );
+	$idade = $tdate->diff( $fixdate );
 	$idade = $idade->y;
-	echo $idade;
 
 	//Calcula o score de acordo com a idade do cliente
 	if ($idade >= 100 || $idade < 18){
 		$score = $score - 5;
-		echo $score;
 	} elseif ($idade >= 40 && $idade <= 99) {
 		$score = $score - 3;
-		echo $score;
 	}
 	
-	
+	//Envia dados para o banco
+	$query = mysqli_query($conecta, "INSERT INTO `dados` (nome, datanasc, email, telefone, regiao, unidade, score, token) VALUES('$nome', '$date', '$email', '$telefone', '$regiao', '$unidade', '$score', '$token')");
+
 ?>
