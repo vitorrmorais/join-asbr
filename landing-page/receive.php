@@ -12,21 +12,21 @@
 
 	//Verifica a regiao e calcula o score
 	switch ($regiao) { 
-    case "sul":
+    case "Sul":
         $score = $score - 2;
 	break;
-	case "sudeste";
+	case "Sudeste";
 		if ($unidade != "São Paulo") { 
 			$score = $score - 1;
 		}
 	break;
-	case "centro-oeste";
+	case "Centro-Oeste";
 		$score = $score - 3;
 	break;
-	case "nordeste";
+	case "Nordeste";
 		$score = $score - 4;
 	break;
-	case "norte";
+	case "Norte";
 		$score = $score - 5;
 	break;
 	}
