@@ -5,11 +5,10 @@
 	$date	  = $_POST["data_nascimento"];
 	$email	  = $_POST["email"];
 	$telefone = $_POST["telefone"];
-	$regiao	  = $_POST["regiao"];
-	$unidade  = $_POST["unidade"];
+	$regiao	  = $_POST["regiao4"];
+	$unidade  = $_POST["unidade4"];
 	$score    = 10;
 	$token    = "06bc8a9c285ef31334b63e60f7814d19";
-	$teste    = "fkgkj904554";
 
 	//Verifica a regiao e calcula o score
 	switch ($regiao) { 
@@ -45,31 +44,31 @@
 		$score = $score - 3;
 	}
 	
-	//Envia dados para o banco
-	$query = mysqli_query($conecta, "INSERT INTO `dados` (nome, datanasc, email, telefone, regiao, unidade, score, token) VALUES('$nome', '$date', '$email', '$telefone', '$regiao', '$unidade', '$score', '$token')");
+	if(strcasecmp('formulario-ajax', $_POST['metodo']) == 0){
+
+		//Envia dados para o banco
+		$query = mysqli_query($conecta, "INSERT INTO `dados` (nome, datanasc, email, telefone, regiao, unidade, score, token) VALUES('$nome', '$date', '$email', '$telefone', '$regiao', '$unidade', '$score', '$token')");
+		
+		//Envia leads para o endpoint
+		$url = 'http://api.actualsales.com.br/join-asbr/ti/lead';
+		$campos = array(
+    		'nome'=>urlencode($nome),
+			'email'=>urlencode($email),
+			'telefone'=>urlencode($telefone),
+			'regiao'=>urlencode($regiao),
+			'unidade'=>urlencode($unidade),
+    		'data_nascimento'=>urlencode($date),
+			'score'=>urlencode($score),
+			'token'=>urlencode($token)
+		);
+		$ch = curl_init();
+		curl_setopt($ch,CURLOPT_URL,$url);
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch,CURLOPT_POST, TRUE);
+		curl_setopt($ch,CURLOPT_POSTFIELDS,$campos);
+		$resultado = curl_exec($ch);
+		curl_close($ch);
+		echo $resultado;
+	}
 	
-	//Obtem o id da ultilma tabela para poder enviar via post
-	$ultimoid = mysqli_insert_id($conecta);	
-
-	//Envia leads para o endpoint
-	$url = 'http://api.actualsales.com.br/join-asbr/ti/lead';
-	$campos = array(
-    	'nome'=>urlencode($nome),
-		'email'=>urlencode($email),
-		'telefone'=>urlencode($telefone),
-		'regiao'=>urlencode($regiao),
-		'unidade'=>urlencode($unidade),
-    	'data_nascimento'=>urlencode($date),
-		'score'=>urlencode($score),
-		'token'=>urlencode($token)
-	);
-	$ch = curl_init();
-	curl_setopt($ch,CURLOPT_URL,$url);
-	curl_setopt($ch,CURLOPT_RETURNTRANSFER, TRUE);
-	curl_setopt($ch,CURLOPT_POST, TRUE);
-	curl_setopt($ch,CURLOPT_POSTFIELDS,$campos);
-	$resultado = curl_exec($ch);
-	curl_close($ch);
-	echo $resultado;
-
 ?>
