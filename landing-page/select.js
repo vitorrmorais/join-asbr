@@ -1,3 +1,4 @@
+
 window.onDomReady = function dgDomReady(fn){
 	if(document.addEventListener)	//W3C
 		document.addEventListener("DOMContentLoaded", fn, false);
@@ -106,7 +107,7 @@ dgUnidadesRegioes.prototype = {
     elm.appendChild(opt);
   },
   regioes : [
-    ['','Selecione uma região'],['SUL','Sul'],['SUD','Sudeste'],['CEN','Centro-Oeste'],['NOD','Nordeste'],['NOT','Norte']
+    ['','Selecione uma região'],['Sul','Sul'],['Sudeste','Sudeste'],['Centro-Oeste','Centro-Oeste'],['Nordeste','Nordeste'],['Norte','Norte']
   ],
   unidades : [
 	[''],
