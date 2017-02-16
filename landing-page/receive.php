@@ -1,5 +1,5 @@
 ﻿<?php
-	include "conexao.php"; //adiciona arquivo de conexao com banco.
+	include "conexao.php"; //Adiciona arquivo de conexao com banco.
 
 	$nome     = $_POST["nome"];
 	$date	  = $_POST["data_nascimento"];
@@ -7,8 +7,9 @@
 	$telefone = $_POST["telefone"];
 	$regiao	  = $_POST["regiao"];
 	$unidade  = $_POST["unidade"];
-	$score = 10;
-	$token = "06bc8a9c285ef31334b63e60f7814d19";
+	$score    = 10;
+	$token    = "06bc8a9c285ef31334b63e60f7814d19";
+	$teste    = "fkgkj904554";
 
 	//Verifica a regiao e calcula o score
 	switch ($regiao) { 
@@ -48,8 +49,7 @@
 	$query = mysqli_query($conecta, "INSERT INTO `dados` (nome, datanasc, email, telefone, regiao, unidade, score, token) VALUES('$nome', '$date', '$email', '$telefone', '$regiao', '$unidade', '$score', '$token')");
 	
 	//Obtem o id da ultilma tabela para poder enviar via post
-	$ultimoid = mysqli_insert_id($conecta);
-	echo $ultimoid;	
+	$ultimoid = mysqli_insert_id($conecta);	
 
 	//Envia leads para o endpoint
 	$url = 'http://api.actualsales.com.br/join-asbr/ti/lead';
@@ -63,15 +63,11 @@
 		'score'=>urlencode($score),
 		'token'=>urlencode($token)
 	);
-	foreach($campos as $name => $valor) {
-    	$string_campos .= $name . '=' . $valor . '&';
-	}
-	$string_campos = rtrim($string_campos,'&');
 	$ch = curl_init();
 	curl_setopt($ch,CURLOPT_URL,$url);
 	curl_setopt($ch,CURLOPT_RETURNTRANSFER, TRUE);
-	curl_setopt($ch,CURLOPT_POST,count($campos));
-	curl_setopt($ch,CURLOPT_POSTFIELDS,$string_campos);
+	curl_setopt($ch,CURLOPT_POST, TRUE);
+	curl_setopt($ch,CURLOPT_POSTFIELDS,$campos);
 	$resultado = curl_exec($ch);
 	curl_close($ch);
 	echo $resultado;
